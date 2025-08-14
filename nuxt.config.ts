@@ -11,7 +11,9 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxt/image',
     '@nuxt/scripts',
-    '@nuxt/test-utils'
+    '@nuxt/test-utils',
+    '@vueuse/nuxt',
+    '@nuxtjs/sitemap'
   ],
   vite: {
     css: {
