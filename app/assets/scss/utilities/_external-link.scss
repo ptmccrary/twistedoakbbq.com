@@ -1,0 +1,9 @@
+.external-link {
+  span::after {
+    content: "\00a0↗";
+    display: inline-block;
+    font-size: 0.65em;
+    font-size: 1cap;
+    vertical-align: baseline;
+  }
+}

@@ -1,0 +1,40 @@
+/*
+FLOW COMPOSITION
+Like the Every Layout stack: https://every-layout.dev/layouts/stack/
+Info about this implementation: https://piccalil.li/blog/my-favourite-3-lines-of-css/
+
+CUSTOM PROPERTIES AND CONFIGURATION
+--flow-space (1em): The space between each item in the flow
+*/
+
+.flow {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  > * + * {
+    margin-block-start: var(--flow-space, 1em);
+  }
+
+  &:only-child {
+    block-size: 100%;
+  }
+
+  &[data-split-after='2'] {
+    > :nth-child(2) {
+      margin-block-end: auto;
+    }
+  }
+
+  &[data-split-after='3'] {
+    > :nth-child(3) {
+      margin-block-end: auto;
+    }
+  }
+
+  &[data-split-before='last'] {
+    > :nth-last-child(2) {
+      margin-block-end: auto;
+    }
+  }
+}

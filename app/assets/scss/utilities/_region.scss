@@ -1,0 +1,8 @@
+/*
+REGION UTILITY
+Consistent block padding for page sections
+*/
+.region:not([data-no-margin]) {
+  margin-block: var(--region-space, var(--space-xl));
+  position: relative;
+}

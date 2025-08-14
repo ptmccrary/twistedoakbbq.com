@@ -1,0 +1,83 @@
+@use '../global/breakpoints' as *;
+
+/* ================================
+BASE PROSE STYLES
+================================ */
+.prose {
+  --flow-space: var(--space-m);
+
+  /* ================================
+  HEADINGS
+  ================================ */
+  :is(h1, h2, h3) {
+    hyphens: auto;
+    overflow-wrap: anywhere;
+  }
+
+  /* ================================
+  TEXT ELEMENTS
+  ================================ */
+  :is(p, li, dl, figcaption, blockquote) {
+    text-wrap: pretty;
+  }
+
+  /* ================================
+  SPACING ADJUSTMENTS
+  ================================ */
+  :is(h1, h2, h3, h4) + *:not([class]) {
+    --flow-space: var(--space-m);
+  }
+
+  /* Add more space on and around figures and tables */
+  :is(figure, table),
+  :is(figure, table) + * {
+    --flow-space: var(--space-2xl);
+  }
+
+  /* Add more space to headings on block start */
+  * + :is(h1, h2, h3, h4):not([class]) {
+    --flow-space: var(--space-xl);
+  }
+
+  :is(ul, ol):not([class]) {
+    margin-block-end: 0;
+
+    li + li,
+    li > :is(ol, ul) {
+      --flow-space: var(--space-xs);
+    }
+  }
+
+  hr {
+    --flow-space: var(--space-xl);
+
+    + :is(h1, h2, h3, h4) {
+      margin-block-start: 0;
+    }
+  }
+
+  /* ================================
+  MEDIA ELEMENTS
+  ================================ */
+  // :is(img, picture, video) {
+  //   border: var(--stroke-solid);
+  // }
+
+  /* ================================
+  CODE BLOCKS
+  ================================ */
+  pre.astro-code {
+    margin-inline: calc(-1 * (var(--gutter) / 2));
+    width: calc(100% + var(--gutter));
+  }
+}
+
+/* ================================
+RESPONSIVE STYLES
+================================ */
+@media (width >= $bp-tablet) {
+  .prose :is(h1, h2, h3) {
+    hyphens: unset;
+    overflow-wrap: unset;
+  }
+}

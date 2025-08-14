@@ -1,0 +1,21 @@
+/*
+COVER
+More info: https://every-layout.dev/layouts/cover/
+A layout that lets you create a full-screen covering element with a centered child element
+*/
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  // min-block-size: calc(100dvh - var(--header-height, 0px));
+  min-block-size: 100vh;
+
+  & > .cover__inner {
+    margin-block: auto;
+    padding-block: var(--gutter);
+
+    &[data-full-height] {
+      flex-grow: 1;
+    }
+  }
+}

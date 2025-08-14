@@ -1,0 +1,8 @@
+.rss-link {
+  transition: color 0.15s var(--ease-in-out-sine);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-accent);
+  }
+}

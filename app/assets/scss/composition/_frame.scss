@@ -1,0 +1,26 @@
+/*
+FRAME
+More info: https://every-layout.dev/layouts/frame/
+A layout that creates a frame around an element with a specific aspect ratio.
+
+CUSTOM PROPERTIES AND CONFIGURATION
+--n (16): The numerator of the aspect ratio.
+--d (9): The denominator of the aspect ratio.
+*/
+
+.frame {
+  --n: 16;
+  --d: 9;
+  aspect-ratio: var(--n) / var(--d);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.frame > img,
+.frame > video {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}

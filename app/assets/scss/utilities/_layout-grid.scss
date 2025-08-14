@@ -1,0 +1,17 @@
+@use "../global/breakpoints" as *;
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-m) 10px;
+
+  @media (min-width: $bp-tablet) {
+    grid-template-columns: repeat(10, 1fr);
+    gap: var(--space-m) 15px;
+  }
+
+  @media (min-width: $bp-desktop-sm) {
+    grid-template-columns: repeat(16, 1fr);
+    gap: var(--space-m) 20px;
+  }
+}

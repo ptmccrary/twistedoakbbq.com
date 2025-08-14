@@ -1,0 +1,47 @@
+/*
+REEL
+More info: https://every-layout.dev/layouts/reel/
+A horizontal scrolling container for a series of items.
+
+CUSTOM PROPERTIES AND CONFIGURATION
+--thumb-color (#000): The color of the scrollbar thumb.
+--track-color (#fff): The color of the scrollbar track.
+*/
+
+.reel {
+  --thumb-color: var(--color-accent);
+  --track-color: var(--color-bg);
+  --sb-size: 6px;
+
+  display: flex;
+  block-size: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  padding-inline: var(--gutter);
+
+  > * {
+    flex: 0 0 auto;
+
+    + * {
+      margin-inline-start: 1rem;
+    }
+  }
+
+  > img {
+    block-size: 100%;
+    flex-basis: auto;
+    width: auto;
+  }
+
+  &.overflowing {
+    padding-block-end: 1rem;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    max-width: 30%;
+  }
+}

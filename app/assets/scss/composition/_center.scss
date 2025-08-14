@@ -1,0 +1,14 @@
+/*
+CENTER
+More info: https://every-layout.dev/layouts/center/
+A layout that centers an element within its parent container
+
+CUSTOM PROPERTIES AND CONFIGURATION
+--measure (var(--measure)): This defines the maximum width of the element.
+*/
+
+.center {
+  box-sizing: content-box;
+  margin-inline: auto;
+  max-inline-size: var(--measure);
+}
