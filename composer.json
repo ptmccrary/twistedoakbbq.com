@@ -1,0 +1,42 @@
+{
+    "name": "twistedoak/twistedoakbbq",
+    "description": "Dev tooling (tests, static analysis) for the Twisted Oak Barbecue site. Runtime code has no Composer dependencies.",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.5"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TwistedOak\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    },
+    "scripts": {
+        "lint": [
+            "@putenv XDEBUG_MODE=off",
+            "find wp-content/plugins/twisted-oak-core wp-content/plugins/twisted-oak-catering wp-content/themes/twistedoak -name '*.php' -print0 | xargs -0 -n1 -P4 php -d display_errors=stderr -l > /dev/null",
+            "phpstan analyse --no-progress --memory-limit=1G"
+        ],
+        "test": [
+            "@putenv XDEBUG_MODE=off",
+            "phpunit --testsuite unit"
+        ],
+        "check": [
+            "@lint",
+            "@test"
+        ]
+    },
+    "require-dev": {
+        "brain/monkey": "^2.7",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.3",
+        "phpunit/phpunit": "^13.4",
+        "szepeviktor/phpstan-wordpress": "^2.0"
+    }
+}

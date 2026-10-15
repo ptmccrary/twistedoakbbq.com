@@ -1,0 +1,16 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    level: 6
+    phpVersion: 80500
+    paths:
+        - wp-content/plugins/twisted-oak-core
+        - wp-content/plugins/twisted-oak-catering
+        - wp-content/themes/twistedoak
+    excludePaths:
+        # WP-CLI commands: php-stubs/wp-cli-stubs does not yet support wordpress-stubs 7.x.
+        - wp-content/plugins/*/includes/cli.php
+        - wp-content/plugins/twisted-oak-core/tools/*
+    bootstrapFiles:
+        - tests/phpstan-bootstrap.php
