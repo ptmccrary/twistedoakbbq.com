@@ -4,7 +4,7 @@
  * Description:       Content model for Twisted Oak BBQ: menu items, events, their taxonomies and meta, plus the menu source abstraction (Local CPT / Square).
  * Version:           1.1.0
  * Requires at least: 6.5
- * Requires PHP:      8.2
+ * Requires PHP:      8.5
  * Author:            Twisted Oak BBQ
  * Text Domain:       twisted-oak-core
  * License:           GPL-2.0-or-later
