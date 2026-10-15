@@ -4,7 +4,7 @@ A map of the repository's architecture, runtime boundaries and dependencies. Eac
 
 ## 1. Top-level architecture
 
-This is **not a monorepo**. It's a single WordPress install with WP core vendored at the root (`wp-settings.php`, `wp-admin/`, `wp-includes/`). There's no package manager, workspace tooling, build step or test suite. All custom code lives in three units.
+This is **not a monorepo**. It's a single WordPress install with WP core vendored at the root (`wp-settings.php`, `wp-admin/`, `wp-includes/`). There's no build step, and runtime code has no package dependencies. Composer is used only for dev tooling (PHPUnit, PHPStan; see `docs/testing.md`). All custom code lives in three units.
 
 | Unit | What it does | Evidence |
 |---|---|---|
@@ -26,7 +26,8 @@ This is **not a monorepo**. It's a single WordPress install with WP core vendore
 | 7 | `wp-content/plugins/twisted-oak-core/tools/` | One-off Drupal import (`import.php`) plus `data/drupal-products.json` |
 | 8 | `wp-content/plugins/twisted-oak-catering/includes/` | data, schedule, post-type, availability, emails, booking, settings, admin, render, submission, rest, cli |
 | 9 | `wp-content/plugins/twisted-oak-catering/{assets,blocks}/` | The plugin's own form CSS/JS and the `twisted-oak/catering-form` block (`includes/render.php:40`) |
-| 10 | `docker/` and `.backups/` | Container build (Dockerfile, nginx, supervisord, xdebug). DB dumps and theme tarballs taken before changes |
+| 10 | `docker/` and `.backups/` | Container build (Dockerfile, nginx, supervisord, xdebug). DB dumps and theme tarballs taken before changes (git-ignored) |
+| 11 | `tests/` | PHPUnit + Brain Monkey unit tests (`tests/unit/`), run without WordPress or a database. Config in `phpunit.xml.dist` and `phpstan.neon.dist` |
 
 ## 3. Runtime boundaries
 
@@ -192,4 +193,4 @@ flowchart TD
 
 - **Load order:** the catering plugin depends on the core plugin at runtime, not at load time. It checks `function_exists` when it builds its product list, so it still works when core is missing, just with a degraded menu.
 - **Two catering frontends:** the plugin ships its own form and wizard (shortcode and block), but the live `/catering` page uses the theme's form. Change markup in the theme and logic in the plugin.
-- **Git:** the folder isn't a git repository yet. The `.gitignore` whitelist doesn't include `docs/` or `docker/`, so this file would be ignored until you add `!docs/` to it.
+- **Git:** `.gitignore` is a whitelist. WordPress core, `wp-config.php` and uploads are not tracked, so a fresh clone needs core downloaded and a config created (see `README.md`). Any new top-level file, or a plugin not named `twisted-oak-*`, must be whitelisted or it won't be committed.
