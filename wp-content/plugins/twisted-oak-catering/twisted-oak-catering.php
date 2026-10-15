@@ -4,7 +4,7 @@
  * Description:       Catering booking system: availability rules, date/time scheduling REST API, booking workflow + calendar, and the [twisted_oak_catering] form/block.
  * Version:           2.0.0
  * Requires at least: 6.5
- * Requires PHP:      8.2
+ * Requires PHP:      8.5
  * Author:            Twisted Oak BBQ
  * Text Domain:       twisted-oak-catering
  *

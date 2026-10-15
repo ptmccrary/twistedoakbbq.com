@@ -42,6 +42,9 @@ RUN echo "upload_max_filesize = 64M" > /usr/local/etc/php/conf.d/uploads.ini && 
   echo "memory_limit = 256M" >> /usr/local/etc/php/conf.d/uploads.ini && \
   echo "max_execution_time = 300" >> /usr/local/etc/php/conf.d/uploads.ini
 
+# CLI-only settings (errors to stderr so WP-CLI output stays clean)
+COPY docker/php-cli.ini /usr/local/etc/php/php-cli.ini
+
 # Configure nginx
 COPY docker/nginx.conf /etc/nginx/http.d/default.conf
 
@@ -51,6 +54,9 @@ COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # Install WP-CLI
 RUN curl -o /usr/local/bin/wp -sSL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
   && chmod +x /usr/local/bin/wp
+
+# Install Composer (dev tooling only: PHPUnit, PHPStan)
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Set working directory
 WORKDIR /var/www

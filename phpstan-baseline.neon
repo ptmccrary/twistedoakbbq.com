@@ -1,0 +1,61 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Anonymous function has an unused use \$p\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: wp-content/plugins/twisted-oak-catering/includes/render.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between null and mixed will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: wp-content/plugins/twisted-oak-catering/includes/schedule.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: wp-content/plugins/twisted-oak-catering/includes/submission.php
+
+		-
+			message: '#^Action callback returns bool but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: wp-content/plugins/twisted-oak-core/includes/square-settings.php
+
+		-
+			message: '#^Function twistedoak_alert\(\) has parameter \$attrs with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-content/themes/twistedoak/inc/components.php
+
+		-
+			message: '#^Parameter \#2 \$args of method WP_Customize_Manager\:\:add_setting\(\) expects array\{type\?\: string, capability\?\: string, theme_supports\?\: array\<string\>\|string, default\?\: string, transport\?\: string, validate_callback\?\: callable\(\)\: mixed, sanitize_callback\?\: callable\(\)\: mixed, sanitize_js_callback\?\: callable\(\)\: mixed, \.\.\.\}, array\{default\: 0, sanitize_callback\: ''absint''\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: wp-content/themes/twistedoak/inc/customizer.php
+
+		-
+			message: '#^Function twistedoak_event_upcoming_clause\(\) should return array\<string, mixed\> but returns array\<int\|string, array\<string, bool\|string\>\|string\>\.$#'
+			identifier: return.type
+			count: 1
+			path: wp-content/themes/twistedoak/inc/events.php
+
+		-
+			message: '#^Access to an undefined property WP_Post\:\:\$menu_item_parent\.$#'
+			identifier: property.notFound
+			count: 1
+			path: wp-content/themes/twistedoak/inc/navigation.php
+
+		-
+			message: '#^Access to an undefined property WP_Post\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: wp-content/themes/twistedoak/inc/navigation.php
+
+		-
+			message: '#^Access to an undefined property WP_Post\:\:\$url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: wp-content/themes/twistedoak/inc/navigation.php
