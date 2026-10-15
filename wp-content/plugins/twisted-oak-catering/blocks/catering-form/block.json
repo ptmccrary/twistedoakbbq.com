@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "twisted-oak/catering-form",
+	"version": "1.0.0",
+	"title": "Catering Inquiry Form",
+	"category": "widgets",
+	"icon": "food",
+	"description": "Multi-step catering inquiry form. Configure under Settings → Catering.",
+	"keywords": [ "catering", "inquiry", "form", "bbq" ],
+	"textdomain": "twisted-oak-catering",
+	"supports": {
+		"html": false,
+		"multiple": false,
+		"reusable": false,
+		"align": [ "wide", "full" ]
+	},
+	"editorScript": "file:./editor.js",
+	"render": "file:./render.php"
+}

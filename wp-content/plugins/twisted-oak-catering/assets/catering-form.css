@@ -1,0 +1,316 @@
+/*
+ * Twisted Oak catering form.
+ * Uses the theme's tokens (--color-*, --space-*, --font-*) with fallbacks so it
+ * also renders sensibly under another theme. Dark-first, square corners.
+ */
+
+.catering-form {
+	--_accent: var(--color-ember, #db5a22);
+	--_accent-lit: var(--color-ember-lit, #ee7b3d);
+	--_text: var(--color-paper, #ece3d2);
+	--_muted: var(--color-smoke, #a69c8c);
+	--_surface: var(--color-ash, #2b2420);
+	--_border: var(--color-oak, #3a322b);
+	--_bg: var(--color-char, #1a1613);
+	--_focus: var(--focus-color, var(--color-ember-lit, #ee7b3d));
+
+	max-width: 680px;
+	margin-inline: auto;
+	padding: var(--space-l, 2rem) var(--space-s, 1rem);
+	color: var(--_text);
+	font-family: var(--font-sans, system-ui, sans-serif);
+}
+
+.catering-form__form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-l, 2rem);
+}
+
+/* Without JS every step is visible; separate them. */
+.catering-form:not(.is-enhanced) .catering-step + .catering-step {
+	padding-top: var(--space-l, 2rem);
+	border-top: 1px solid var(--_border);
+}
+
+.catering-step {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-s, 1.25rem);
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.catering-step[hidden],
+.catering-form [hidden] {
+	display: none !important;
+}
+
+.catering-step__legend {
+	float: left; /* lets the legend participate in layout like a normal heading */
+	width: 100%;
+	margin: 0 0 var(--space-xs, 0.5rem);
+	padding: 0;
+}
+
+.catering-step__legend + * {
+	clear: both;
+}
+
+.catering-step__heading {
+	margin: 0;
+	font-family: var(--font-display, 'Arial Narrow', sans-serif);
+	font-size: var(--font-size-3, clamp(1.5rem, 1.3rem + 0.9vw, 2rem));
+	font-weight: var(--font-bold, 700);
+	line-height: var(--leading-tight, 1.1);
+	text-transform: uppercase;
+	letter-spacing: var(--tracking-wide, 0.04em);
+}
+
+.catering-step__heading:focus {
+	outline: none;
+}
+
+.catering-step__heading:focus-visible {
+	outline: 2px solid var(--_focus);
+	outline-offset: var(--focus-offset, 3px);
+}
+
+.catering-step__group {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xs, 0.5rem);
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.catering-step__group-label {
+	float: left;
+	width: 100%;
+	margin-bottom: var(--space-2xs, 0.25rem);
+	padding: 0;
+	font-family: var(--font-mono, ui-monospace, monospace);
+	font-size: var(--fs-eyebrow, 0.8rem);
+	font-weight: var(--font-semibold, 600);
+	letter-spacing: var(--tracking-eyebrow, 0.18em);
+	text-transform: uppercase;
+	color: var(--_muted);
+}
+
+.catering-step__note {
+	margin: 0;
+	font-size: var(--fs-small, 0.875rem);
+	color: var(--_muted);
+}
+
+.catering-step__option {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs, 0.5rem);
+	padding: var(--space-xs, 0.5rem) var(--space-s, 1rem);
+	background: var(--_surface);
+	border: 1px solid var(--_border);
+	cursor: pointer;
+	transition: border-color var(--duration-fast, 200ms) var(--ease-out-cubic, ease-out);
+}
+
+.catering-step__option:hover,
+.catering-step__option:has(input:checked) {
+	border-color: var(--_accent);
+}
+
+.catering-step__option input {
+	flex: none;
+	width: 1.125rem;
+	height: 1.125rem;
+	margin: 0;
+	accent-color: var(--_accent);
+}
+
+.catering-premium-badge {
+	margin-inline-start: auto;
+	padding: 0.15em 0.5em;
+	font-family: var(--font-mono, ui-monospace, monospace);
+	font-size: var(--fs-small, 0.75rem);
+	letter-spacing: var(--tracking-wide, 0.04em);
+	text-transform: uppercase;
+	color: var(--_bg);
+	background: var(--_accent);
+}
+
+.catering-step__row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-s, 1rem);
+}
+
+.catering-step__row > * {
+	flex: 1 1 12rem;
+}
+
+.catering-step__field {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2xs, 0.375rem);
+}
+
+.catering-step__field label {
+	font-weight: var(--font-medium, 500);
+}
+
+.catering-step__field input,
+.catering-step__field textarea {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0.6rem 0.75rem;
+	font: inherit;
+	color: var(--_text);
+	background: var(--_surface);
+	border: 1px solid var(--_border);
+	border-radius: var(--radius-sm, 2px);
+	color-scheme: dark;
+}
+
+.catering-step__field input:focus-visible,
+.catering-step__field textarea:focus-visible,
+.catering-step__option:has(input:focus-visible) {
+	outline: 2px solid var(--_focus);
+	outline-offset: 2px;
+}
+
+.catering-step__field textarea {
+	min-height: 120px;
+	resize: vertical;
+}
+
+/* Honeypot: off-screen, not display:none (some bots skip hidden fields). */
+.catering-hp {
+	position: absolute !important;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.catering-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-xs, 0.75rem);
+	margin-top: var(--space-xs, 0.5rem);
+}
+
+.catering-nav button {
+	padding: 0.7rem 1.6rem;
+	font-family: var(--font-mono, ui-monospace, monospace);
+	font-size: var(--fs-small, 0.875rem);
+	font-weight: var(--font-semibold, 600);
+	letter-spacing: var(--tracking-eyebrow, 0.12em);
+	text-transform: uppercase;
+	color: inherit;
+	background: transparent;
+	border: 2px solid currentColor;
+	border-radius: var(--radius, 0);
+	cursor: pointer;
+	transition:
+		background-color var(--duration-fast, 200ms) var(--ease-out-cubic, ease-out),
+		border-color var(--duration-fast, 200ms) var(--ease-out-cubic, ease-out),
+		color var(--duration-fast, 200ms) var(--ease-out-cubic, ease-out);
+}
+
+.catering-nav button[data-action="next"],
+.catering-nav button[data-action="submit"] {
+	margin-inline-start: auto;
+	color: var(--_bg);
+	background: var(--_accent);
+	border-color: var(--_accent);
+}
+
+.catering-nav button[data-action="back"]:hover {
+	color: var(--_accent-lit);
+}
+
+.catering-nav button[data-action="next"]:hover,
+.catering-nav button[data-action="submit"]:hover {
+	background: var(--_accent-lit);
+	border-color: var(--_accent-lit);
+}
+
+.catering-nav button:focus-visible {
+	outline: 2px solid var(--_focus);
+	outline-offset: var(--focus-offset, 3px);
+}
+
+.catering-nav button:disabled {
+	opacity: 0.6;
+	cursor: progress;
+}
+
+.catering-progress {
+	display: flex;
+	gap: var(--space-xs, 0.5rem);
+}
+
+.catering-progress__dot {
+	width: 10px;
+	height: 10px;
+	background: currentColor;
+	opacity: 0.25;
+	transition: opacity var(--duration-fast, 200ms), background-color var(--duration-fast, 200ms);
+}
+
+.catering-progress__dot--active {
+	opacity: 1;
+	background: var(--_accent);
+}
+
+.catering-error {
+	margin: 0;
+	padding: var(--space-xs, 0.5rem) var(--space-s, 1rem);
+	font-size: var(--fs-small, 0.9rem);
+	color: var(--_text);
+	background: color-mix(in srgb, var(--_accent) 18%, transparent);
+	border-inline-start: 3px solid var(--_accent);
+}
+
+.catering-success {
+	padding: var(--space-xl, 3rem) var(--space-s, 1rem);
+	text-align: center;
+	background: var(--_surface);
+	border-top: 3px solid var(--_accent);
+}
+
+.catering-success:focus {
+	outline: none;
+}
+
+.catering-success__heading {
+	margin: 0 0 var(--space-xs, 0.75rem);
+	font-family: var(--font-display, 'Arial Narrow', sans-serif);
+	font-size: var(--font-size-4, 2rem);
+	font-weight: var(--font-bold, 700);
+	text-transform: uppercase;
+	color: var(--_accent-lit);
+}
+
+/* Fallback in case the theme's utility isn't loaded. */
+.catering-form .visually-hidden {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.catering-form *,
+	.catering-form *::before,
+	.catering-form *::after {
+		transition: none !important;
+	}
+}
