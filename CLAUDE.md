@@ -10,7 +10,7 @@ WordPress site for Twisted Oak Barbecue (Charlottesville, VA), rebuilt from an e
 - `wp-content/plugins/twisted-oak-core/`: content model (menu items, events, taxonomies, meta) plus the menu source abstraction (Local CPT or Square).
 - `wp-content/plugins/twisted-oak-catering/`: catering booking system (availability rules, scheduling REST API, lead workflow, emails/ICS, `[twisted_oak_catering]` shortcode/block).
 
-Everything else under `wp-content/` (twentytwenty* themes, akismet, hello.php) is stock. Requires PHP 8.2+, and all custom files use `declare(strict_types=1)`.
+Everything else under `wp-content/` (twentytwenty* themes, akismet, hello.php) is stock. Requires PHP 8.5+, and all custom files use `declare(strict_types=1)`.
 
 ## Local environment
 
@@ -29,7 +29,7 @@ Run WP-CLI inside the container:
 docker exec twistedoakbbq wp --allow-root <command> 2>/dev/null
 ```
 
-Add `2>/dev/null` because, under PHP 8.5 with Xdebug, WP-CLI prints a long deprecation stack trace on stderr for every command.
+Under PHP 8.5, the WP-CLI phar prints a deprecation notice (from its bundled `react/promise`) on every command, and Xdebug adds a call stack to it. `docker/php-cli.ini` (CLI only, php-fpm is unaffected) sends that output to **stderr**, so `2>/dev/null` hides it and stdout stays clean for machine-readable output such as `twisted-oak-menu dump`. Leave off `2>/dev/null` when you want to see PHP warnings. Add `-e XDEBUG_MODE=off` to `docker exec` to drop the call stack and skip the debugger connection attempt.
 
 Custom commands:
 
@@ -39,7 +39,14 @@ Custom commands:
 - `wp twisted-oak-catering seed [--settings-only] [--remove]`: placeholder availability settings plus about 7 bookings over the next 6 weeks. It never sends email.
 - `wp eval-file wp-content/plugins/twisted-oak-core/tools/import.php`: idempotent import of Drupal products (from `tools/data/drupal-products.json`) and taxonomies.
 
-There are no tests, linters or build commands in this repo.
+### Tests and static analysis
+
+There is no build step. Composer is used only for dev tooling (`vendor/` is ignored by git):
+
+- `docker exec twistedoakbbq composer check` runs everything: `php -l`, PHPStan (level 6, `phpstan.neon.dist`) and the unit suite. `composer lint` and `composer test` run the parts on their own. The scripts set `XDEBUG_MODE=off` themselves.
+- Unit tests live in `tests/unit/` and use PHPUnit plus Brain Monkey. They run with no WordPress or database. `tests/unit/TestCase.php` stubs the WP functions, holds fake options in `$this->options`, and freezes "now" in `$this->now` (Thursday 2026-10-15, America/New_York). Call `$this->setSchedule()` to change the catering schedule, because it also resets the memoised schedule. Load any new plugin files you need in `tests/bootstrap-unit.php`.
+- `phpstan-baseline.neon` holds pre-existing findings. Don't add to it. The `cli.php` files are excluded from analysis because `php-stubs/wp-cli-stubs` does not support wordpress-stubs 7.x yet.
+- The pre-PR checklist is in `docs/testing.md`.
 
 ### Backups
 
