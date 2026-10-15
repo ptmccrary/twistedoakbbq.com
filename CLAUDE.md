@@ -87,4 +87,6 @@ There is no build step. Composer is used only for dev tooling (`vendor/` is igno
 
 ## Git
 
-The folder is not currently a git repository. The root `.gitignore` is a whitelist: it ignores everything at the root except `wp-content/` and a few named files (`.gitignore`, `CLAUDE.md`, `README.md`, `CHANGELOG.md`, `composer.json` and similar). Under `wp-content/` it tracks only `themes/twistedoak/` and `plugins/twisted-oak-*/`. Root directories such as `docker/` and `docs/`, and `docker-compose.yml`, are **not** whitelisted. Add them before you initialize a repo if they should be tracked.
+The repo lives at `github.com/ptmccrary/twistedoakbbq.com`. Work happens on branches and lands on `main` through pull requests.
+
+The root `.gitignore` is a whitelist: it ignores everything at the root except `wp-content/`, the `.claude/`, `docs/`, `docker/` and `tests/` directories, and named files (`docker-compose.yml`, `CLAUDE.md`, `README.md`, `composer.json`/`composer.lock`, the PHPUnit and PHPStan configs and similar). Under `wp-content/` it tracks only `themes/twistedoak/` and `plugins/twisted-oak-*/`. WordPress core, `wp-config.php`, `vendor/`, `.backups/` and `*.sql` are **not** tracked. Whitelist any new top-level file or directory, or any plugin outside the `twisted-oak-*` pattern, or it won't be committed. Fresh-clone setup is in `README.md`.
