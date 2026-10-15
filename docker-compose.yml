@@ -1,0 +1,29 @@
+name: twistedoakbbq
+
+services:
+  twistedoakbbq:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: twistedoakbbq
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - .:/var/www
+      - ./docker/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    environment:
+      APP_URL: http://twistedoakbbq.com.test
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.twistedoakbbq.rule=Host(`twistedoakbbq.com.test`)"
+      - "traefik.http.routers.twistedoakbbq.priority=1"
+      - "traefik.http.routers.twistedoakbbq.service=twistedoakbbq"
+      - "traefik.http.services.twistedoakbbq.loadbalancer.server.port=80"
+    networks:
+      journey-network:
+        aliases: [twistedoakbbq.com.test]
+
+networks:
+  journey-network:
+    external: true
+    name: journey-network
