@@ -1,0 +1,8 @@
+/* Block editor: content reads like the front-end prose (Zilla Slab headings, Libre Franklin body). */
+body { background: var(--bg); color: var(--text-secondary); font-family: var(--font-sans); font-size: 18px; line-height: 30px; }
+h1, h2, h3, h4, .editor-post-title__input { font-family: var(--font-slab); color: var(--text); }
+h1, .editor-post-title__input { font-weight: 700; font-size: var(--text-h1); line-height: var(--leading-h1); }
+h2 { font-weight: 700; font-size: var(--text-h2); line-height: var(--leading-h2); }
+h3 { font-weight: 600; font-size: var(--text-h3); line-height: var(--leading-h3); }
+a { color: var(--brand); }
+blockquote { font-family: var(--font-slab); font-weight: 600; font-size: 22px; line-height: 30px; color: var(--accent-text); }

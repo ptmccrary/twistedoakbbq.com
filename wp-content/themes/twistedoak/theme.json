@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.6/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": false,
+		"layout": {
+			"contentSize": "720px",
+			"wideSize": "1200px"
+		},
+		"color": {
+			"custom": false,
+			"customGradient": false,
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"gradients": [],
+			"palette": [
+				{ "slug": "ember", "name": "Ember (action)", "color": "#ff6809" },
+				{ "slug": "ember-deep", "name": "Ember, text on light", "color": "#a53d05" },
+				{ "slug": "moss", "name": "Moss", "color": "#435623" },
+				{ "slug": "bone", "name": "Bone", "color": "#e1e1d3" },
+				{ "slug": "stone", "name": "Stone (page)", "color": "#f2f0e7" },
+				{ "slug": "charcoal", "name": "Charcoal", "color": "#2f2f2f" },
+				{ "slug": "ink", "name": "Ink (text)", "color": "#21201e" }
+			]
+		},
+		"typography": {
+			"customFontSize": false,
+			"dropCap": false,
+			"defaultFontSizes": false,
+			"fontFamilies": [
+				{ "slug": "slab", "name": "Zilla Slab", "fontFamily": "\"Zilla Slab\", Rockwell, Georgia, serif" },
+				{ "slug": "sans", "name": "Libre Franklin", "fontFamily": "\"Libre Franklin\", \"Franklin Gothic Medium\", \"Helvetica Neue\", Arial, sans-serif" }
+			],
+			"fontSizes": [
+				{ "slug": "small", "name": "Small", "size": "14px" },
+				{ "slug": "body", "name": "Body", "size": "18px" },
+				{ "slug": "large", "name": "Large", "size": "22px" }
+			]
+		},
+		"spacing": {
+			"customSpacingSize": false,
+			"units": [ "px", "rem", "%" ]
+		}
+	}
+}
